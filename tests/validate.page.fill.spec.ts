@@ -27,7 +27,7 @@ test.describe(' Epam Form Test', () => {
         let inquieryReason = "Press Inquiry";
         let location = "Mexico";
         let howDid = "Event"
-        await myform.fillForm(name, lastName, email, inquieryReason, phone, company, position, location, howDid);
+        await myform.fillForm(page, name, lastName, email, inquieryReason, phone, company, position, location, howDid);
         //await expect(myform.firstName).to.equal(name);
     });
 

@@ -11,6 +11,7 @@ interface IEpamForm {
     readonly textBoxPosition?: Locator;
     readonly comboBoxLocation?: Locator;
     readonly comboBoxHowDidYouKnow: Locator;
+    readonly comboOption: Locator;
 
 }
 
@@ -28,12 +29,13 @@ export class EpamFormPage implements IEpamForm {
     readonly textBoxPosition: Locator;
     readonly comboBoxLocation: Locator;
     readonly comboBoxHowDidYouKnow: Locator;
+    comboOption: Locator;
 
 
     constructor(page: Page) {
 
         this.textBoxFirstName = page.locator("[name=user_first_name]");
-        this.textBoxLastName = page.locator("[name=user_first_name]");
+        this.textBoxLastName = page.locator("[name=user_last_name]");
         this.textBoxEmail = page.locator("[name=user_email]");
 
 
@@ -44,24 +46,38 @@ export class EpamFormPage implements IEpamForm {
         this.textBoxPosition = page.locator(".select2-selection__rendered").nth(1);
         this.comboBoxLocation = page.locator(".select2-selection__rendered").nth(2);
         this.comboBoxHowDidYouKnow = page.locator(".select2-selection__rendered").nth(6);
+        this.comboOption = page.locator(".select2-results__option >> text=Press Inquiry");
     }
     // define the objects in the page
 
 
 
-    async fillForm(name: string, lastname: string, email: string, inquieryReason: string, phone: string, company: string, position: string, location: string, howDid: string) {
-        this.textBoxFirstName.type(name);
-        this.textBoxLastName.type(lastname);
-        this.textBoxEmail.type(email);
+    async fillForm(page: Page, name: string, lastname: string, email: string, inquieryReason: string, phone: string, company: string, position: string, location: string, howDid: string) {
+        await this.textBoxFirstName.type(name);
+        await this.textBoxLastName.type(lastname);
+        await this.textBoxEmail.type(email);
 
 
         //Optional Fields
-        this.comboBoxInquiryReason.selectOption(inquieryReason);
-        this.textBoxPhone.type(phone);
-        this.textBoxCompany.type(company);
-        this.textBoxPosition.type(position);
-        this.comboBoxLocation.selectOption(location);
-        this.comboBoxHowDidYouKnow.selectOption(howDid);
+        await this.comboBoxInquiryReason.click();
+        await this.comboOption.click();
+        //await this.pickOption(page, "Press Inquiry");
+        await this.textBoxPhone.type(phone);
+        await this.textBoxCompany.type(company);
+        await this.textBoxPosition.type(position);
+        //await this.comboBoxLocation.selectOption(location);
+        //await this.comboBoxHowDidYouKnow.selectOption(howDid);
+    }
+
+    async pickOption(page: Page, option: string) {
+        //readonly optionObj: Locator;
+        // this.comboOption = page.locator(`.select2-results__option >> text=${option}`);
+        this.comboOption = page.locator(".select2-results__option >> text=Press Inquiry");
+        await this.comboOption.click();
+        //await (await page.waitForSelector(`select2-results__option >> text=${option}`, { timeout: 2000 })).click;
+
+
+
     }
 
 
