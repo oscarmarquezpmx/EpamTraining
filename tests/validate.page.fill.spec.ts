@@ -23,11 +23,12 @@ test.describe(' Epam Form Test', () => {
         let email = "some@gmail.com";
         let phone = "1232331";
         let company = "EPAM";
-        let position = "Tech Lead";
+        let position = "Other";
         let inquieryReason = "Press Inquiry";
         let location = "Mexico";
+        let city = "Apodaca";
         let howDid = "Event"
-        await myform.fillForm(page, name, lastName, email, inquieryReason, phone, company, position, location, howDid);
+        await myform.fillForm(page, name, lastName, email, inquieryReason, phone, company, position, location, city, howDid);
         //await expect(myform.firstName).to.equal(name);
     });
 
